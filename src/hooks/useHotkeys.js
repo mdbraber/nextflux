@@ -17,6 +17,7 @@ import {
   addFeedModalOpen,
 } from "@/stores/modalStore.js";
 import { useSidebarNavigation } from "@/hooks/useSidebarNavigation";
+import { toggleArticleWebView } from "@/stores/webViewStore.js";
 
 export function useHotkeys() {
   const navigate = useNavigate();
@@ -116,6 +117,12 @@ export function useHotkeys() {
         case "v": // 在新标签页打开原文
           if (articleId) {
             window.open($activeArticle.url, "_blank");
+          }
+          break;
+
+        case "w": // web view: show the article as its own page
+          if (articleId) {
+            toggleArticleWebView($activeArticle);
           }
           break;
 

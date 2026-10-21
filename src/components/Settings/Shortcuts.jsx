@@ -26,6 +26,10 @@ export default function Shortcuts() {
         desc: t("sidebar.shortcuts.toggleReaderView"),
       },
       {
+        key: "W",
+        desc: t("sidebar.shortcuts.toggleWebView"),
+      },
+      {
         key: "ESC",
         desc: t("sidebar.shortcuts.close"),
       },

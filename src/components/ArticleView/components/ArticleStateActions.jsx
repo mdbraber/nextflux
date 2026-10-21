@@ -10,7 +10,7 @@ import { LiquidGlass } from "@/components/ui/liquid-glass";
 import { Kbd } from "@/components/ui/kbd";
 import { useRef } from "react";
 import { useStore } from "@nanostores/react";
-import { Circle, CircleDot, FileText, Star } from "lucide-react";
+import { Circle, CircleDot, FileText, Globe, Star } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import Confetti from "@/components/ui/Confetti";
 import {
@@ -25,6 +25,12 @@ import {
 import ArticleAiAction from "./ArticleAiAction.jsx";
 import ArticleExternalActions from "./ArticleExternalActions.jsx";
 import ArticleViewportControl from "./ArticleViewportControl.jsx";
+import { settingsState } from "@/stores/settingsStore.js";
+import {
+  toggleArticleWebView,
+  webViewOverrides,
+} from "@/stores/webViewStore.js";
+import { isWebView, webViewUrl } from "@/domain/articles/webView.js";
 export default function ArticleStateActions({
   article,
   canExpand,
@@ -37,6 +43,12 @@ export default function ArticleStateActions({
   const pending = useStore(pendingArticleMutations);
   const statusPending = article ? `${article.id}:status` in pending : false;
   const starPending = article ? `${article.id}:starred` in pending : false;
+  const { webViewFeeds } = useStore(settingsState);
+  const overrides = useStore(webViewOverrides);
+  const webView = article ? isWebView(article, webViewFeeds, overrides) : false;
+  const webViewLabel = webView
+    ? t("articleView.hideWebView")
+    : t("articleView.showWebView");
   return (
     <LiquidGlass
       role="group"
@@ -149,6 +161,35 @@ export default function ArticleStateActions({
             ? t("articleView.showSummary")
             : t("articleView.getFullText")}
           <Kbd>G</Kbd>
+        </TooltipContent>
+      </Tooltip>
+      <Tooltip>
+        <TooltipTrigger
+          closeOnClick={false}
+          render={
+            <Button
+              variant="ghost"
+              aria-label={webViewLabel}
+              aria-pressed={webView}
+              onClick={() => toggleArticleWebView(article)}
+              disabled={!webViewUrl(article)}
+              focusableWhenDisabled={Boolean(article)}
+              className="rounded-full data-disabled:opacity-50"
+              size="icon-sm"
+            >
+              <Globe
+                className={cn(
+                  "size-4",
+                  webView ? "text-primary" : "text-muted-foreground",
+                )}
+              />
+            </Button>
+          }
+          delay={0}
+        />
+        <TooltipContent>
+          {webViewLabel}
+          <Kbd>W</Kbd>
         </TooltipContent>
       </Tooltip>
       {(canExpand || isExpanded) && (

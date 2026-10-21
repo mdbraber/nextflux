@@ -39,6 +39,8 @@ import { Check, Copy, ChevronDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import CustomModal from "@/components/ui/CustomModal.jsx";
 import { reportError } from "@/lib/errors.js";
+import { settingsState } from "@/stores/settingsStore.js";
+import { setFeedWebView } from "@/stores/webViewStore.js";
 import {
   Collapsible,
   CollapsibleTrigger,
@@ -57,6 +59,9 @@ export default function EditFeedModal() {
   const [feedUrl, setFeedUrl] = useState("");
   const [isCopied, setIsCopied] = useState(false);
   const [advancedOpen, setAdvancedOpen] = useState(false);
+  const { webViewFeeds } = useStore(settingsState);
+  // A Nextflux preference, not a Miniflux feed field: saved in this browser.
+  const [webView, setWebView] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     category_id: "",
@@ -84,10 +89,12 @@ export default function EditFeedModal() {
         setFeedUrl(feed.url);
       }
     }
-  }, [feedId, $feeds]);
+    setWebView(webViewFeeds.includes(Number(feedId)));
+  }, [feedId, $feeds, webViewFeeds]);
   const onClose = () => {
     editFeedModalOpen.set(false);
     currentFeedId.set(null); // 清除 store 中的 feedId
+    setWebView(webViewFeeds.includes(Number(feedId)));
     if (feedId) {
       const feed = $feeds.find((f) => f.id === parseInt(feedId));
       if (feed) {
@@ -110,6 +117,7 @@ export default function EditFeedModal() {
     try {
       setLoading(true);
       await minifluxAPI.updateFeed(feedId, formData);
+      setFeedWebView(feedId, webView);
       await forceSync(); // 重新加载订阅源列表以更新UI
       onClose();
     } catch (error) {
@@ -231,6 +239,22 @@ export default function EditFeedModal() {
                     </Button>
                   </InputGroupAddon>
                 </InputGroup>
+              </Field>
+              <Field orientation="horizontal">
+                <Checkbox
+                  value="web_view"
+                  checked={webView}
+                  onCheckedChange={(value) => setWebView(value)}
+                  id="web_view"
+                />
+                <FieldContent>
+                  <FieldLabel htmlFor="web_view">
+                    {t("feed.feedWebView")}
+                  </FieldLabel>
+                  <FieldDescription>
+                    {t("feed.feedWebViewDescription")}
+                  </FieldDescription>
+                </FieldContent>
               </Field>
               <Collapsible open={advancedOpen} onOpenChange={setAdvancedOpen}>
                 <CollapsibleTrigger

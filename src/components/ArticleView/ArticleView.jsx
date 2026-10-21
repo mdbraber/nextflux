@@ -31,6 +31,9 @@ import ArticleLoading from "./components/ArticleLoading.jsx";
 import ArticleReadingRail from "./components/ArticleReadingRail.jsx";
 import { useReducedMotion } from "@/hooks/useReducedMotion.js";
 import { ScrollArea } from "@/components/ui/scroll-area.jsx";
+import WebView from "./components/WebView.jsx";
+import { webViewOverrides } from "@/stores/webViewStore.js";
+import { isWebView } from "@/domain/articles/webView.js";
 function useActiveArticle(articleId) {
   const result = useLiveQuery(async () => {
     if (!articleId) return { articleId, article: null };
@@ -120,7 +123,9 @@ export default function ArticleView() {
     titleFontSize,
     titleAlignType,
     showReadingRail,
+    webViewFeeds,
   } = useStore(settingsState);
+  const overrides = useStore(webViewOverrides);
   const reduceMotion = useReducedMotion();
   const scrollAreaRef = useRef(null);
   const previousExpansion = useRef(isExpanded);
@@ -142,6 +147,9 @@ export default function ArticleView() {
   }, [isExpanded, reduceMotion, articleId]);
   const isMedium = useIsMedium();
   const { error, loading } = useActiveArticle(articleId);
+  const webView = Boolean(
+    article && !error && isWebView(article, webViewFeeds, overrides),
+  );
   return (
     <MotionConfig reducedMotion={reduceMotion ? "always" : "never"}>
       <div
@@ -185,6 +193,24 @@ export default function ArticleView() {
               >
                 {!articleId ? (
                   <EmptyPlaceholder />
+                ) : webView ? (
+                  <div
+                    className={cn(
+                      "article-web-view flex flex-col w-full min-w-0 h-full bg-popover relative overflow-hidden",
+                      !isExpanded && "md:shadow-custom md:rounded-2xl",
+                      (isExpanded || isMedium) && "px-safe pb-safe",
+                    )}
+                  >
+                    <ActionButtons
+                      scrollAreaRef={scrollAreaRef}
+                      isExpanded={isExpanded}
+                      canExpand={!isMedium}
+                      onToggleExpanded={() =>
+                        setFullView((current) => !current)
+                      }
+                    />
+                    <WebView key={articleId} article={article} />
+                  </div>
                 ) : (
                   <>
                     <ScrollArea

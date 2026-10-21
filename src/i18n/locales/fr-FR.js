@@ -81,6 +81,9 @@ export default {
     feedCategory: "Catégorie",
     feedCrawler: "Récupérer le contenu original",
     feedHide: "Masquer le flux globalement",
+    feedWebView: "Ouvrir en vue web",
+    feedWebViewDescription:
+      "Afficher les articles comme leur page web au lieu du contenu du flux (enregistré dans ce navigateur)",
     feedCrawlerDescription:
       "Essayer de récupérer automatiquement le contenu original",
     feedHideDescription: "Masquer ce flux et ses articles par défaut",
@@ -142,6 +145,7 @@ export default {
       toggleSidebar: "Afficher/masquer la barre latérale",
       toggleShortcuts: "Afficher/masquer les raccourcis",
       toggleReaderView: "Afficher/masquer la vue lecteur",
+      toggleWebView: "Basculer la vue web",
       addFeed: "Nouveau flux",
       refresh: "Rafraîchir",
       search: "Recherche globale",
@@ -190,6 +194,9 @@ export default {
     stopPlay: "STOP",
     getFullText: "Vue lecteur",
     showSummary: "Masquer la vue lecteur",
+    showWebView: "Vue web",
+    hideWebView: "Masquer la vue web",
+    openInNewTab: "Ouvrir dans un nouvel onglet",
     saveToThirdParty: "Enregistrer dans des services tiers",
     attachments: "Pièces jointes",
     audioNotSupported:
