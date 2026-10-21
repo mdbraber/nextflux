@@ -128,7 +128,8 @@ html[data-reduced-motion="true"] .action-buttons {
   @apply my-4 w-auto!;
 }
 
-iframe:not(.article-media-player iframe) {
+/* Embedded media in article content; the web view frame fills the pane instead. */
+iframe:not(.article-media-player iframe):not(.web-view-frame) {
   @apply aspect-video border-none! h-auto w-[calc(100%+2.5rem)]! max-w-[calc(100%+2.5rem)]! -mx-5;
 }
 
