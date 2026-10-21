@@ -2,11 +2,11 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   isWebView,
+  wantsWebView,
   webViewUrl,
-  withWebViewId,
 } from "../../src/domain/articles/webView.js";
 
-const article = { id: 7, feedId: 3, url: "https://example.com/issue" };
+const article = { id: 7, url: "https://example.com/issue", tags: ["web-view"] };
 
 test("only http(s) pages can be shown in web view", () => {
   assert.equal(webViewUrl(article), "https://example.com/issue");
@@ -15,24 +15,17 @@ test("only http(s) pages can be shown in web view", () => {
   assert.equal(webViewUrl(null), null);
 });
 
-test("feeds and categories open in web view by default, a session choice wins", () => {
-  const feed = { webViewFeeds: [3] };
-  const category = { webViewCategories: [5], categoryId: 5 };
-  assert.equal(isWebView(article, feed, {}), true);
-  assert.equal(isWebView(article, category, {}), true);
-  assert.equal(
-    isWebView(article, { webViewCategories: [5], categoryId: 6 }, {}),
-    false,
-  );
-  assert.equal(isWebView(article, {}, {}), false);
-  assert.equal(isWebView(article, feed, { 7: false }), false);
-  assert.equal(isWebView(article, {}, { 7: true }), true);
-  assert.equal(isWebView({ ...article, url: "" }, feed, { 7: true }), false);
+test("a feed asks for web view with the web-view tag", () => {
+  assert.equal(wantsWebView(article), true);
+  assert.equal(wantsWebView({ tags: ["Web-View"] }), true);
+  assert.equal(wantsWebView({ tags: ["news"] }), false);
+  assert.equal(wantsWebView({}), false);
 });
 
-test("switching a feed or category on and off keeps the list unique", () => {
-  assert.deepEqual(withWebViewId([1, 3], 3, true), [1, 3]);
-  assert.deepEqual(withWebViewId([1], "3", true), [1, 3]);
-  assert.deepEqual(withWebViewId([1, 3], 3, false), [1]);
-  assert.deepEqual(withWebViewId(undefined, 0, true), []);
+test("a session choice wins over the feed's request", () => {
+  assert.equal(isWebView(article, {}), true);
+  assert.equal(isWebView(article, { 7: false }), false);
+  assert.equal(isWebView({ ...article, tags: [] }, {}), false);
+  assert.equal(isWebView({ ...article, tags: [] }, { 7: true }), true);
+  assert.equal(isWebView({ ...article, url: "" }, { 7: true }), false);
 });

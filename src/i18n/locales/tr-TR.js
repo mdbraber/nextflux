@@ -82,9 +82,6 @@ export default {
     feedCategory: "Kategori",
     feedCrawler: "Orijinal içeriği çek",
     feedHide: "Beslemeyi her yerden gizle",
-    feedWebView: "Web görünümünde aç",
-    feedWebViewDescription:
-      "Makaleleri besleme içeriği yerine web sayfası olarak göster (bu tarayıcıda kaydedilir)",
     feedCrawlerDescription: "Orijinal içeriği otomatik çekmeyi dene",
     feedHideDescription: "Bu beslemeyi ve makalelerini varsayılan olarak gizle",
     feedTitlePlaceholder: "Lütfen besleme başlığını girin",
@@ -177,8 +174,6 @@ export default {
       categoryName: "Başlık",
       categoryNamePlaceholder: "Lütfen kategori başlığını girin",
       categoryNameRequired: "Lütfen kategori başlığını girin",
-      webViewDescription:
-        "Bu kategorideki tüm beslemelerin makalelerini web sayfası olarak göster (bu tarayıcıda kaydedilir)",
     },
   },
   articleView: {

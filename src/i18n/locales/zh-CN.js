@@ -79,8 +79,6 @@ export default {
     feedTitle: "标题",
     feedCategory: "分类",
     feedHide: "隐藏订阅",
-    feedWebView: "以网页视图打开",
-    feedWebViewDescription: "以文章网页代替订阅内容显示（保存在此浏览器中）",
     feedCrawler: "抓取原始内容",
     feedCrawlerDescription: "尝试自动抓取原始内容",
     feedHideDescription: "默认隐藏此订阅及其文章",
@@ -174,8 +172,6 @@ export default {
       categoryName: "标题",
       categoryNamePlaceholder: "请输入分类标题",
       categoryNameRequired: "请输入分类标题",
-      webViewDescription:
-        "将此分类中所有订阅的文章以网页显示（保存在此浏览器中）",
     },
   },
   articleView: {

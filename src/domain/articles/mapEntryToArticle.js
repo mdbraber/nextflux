@@ -12,5 +12,6 @@ export function mapEntryToArticle(entry) {
     created_at: entry.created_at,
     reading_time: entry.reading_time,
     enclosures: entry.enclosures || [],
+    tags: entry.tags || [],
   };
 }

@@ -81,9 +81,6 @@ export default {
     feedCategory: "Catégorie",
     feedCrawler: "Récupérer le contenu original",
     feedHide: "Masquer le flux globalement",
-    feedWebView: "Ouvrir en vue web",
-    feedWebViewDescription:
-      "Afficher les articles comme leur page web au lieu du contenu du flux (enregistré dans ce navigateur)",
     feedCrawlerDescription:
       "Essayer de récupérer automatiquement le contenu original",
     feedHideDescription: "Masquer ce flux et ses articles par défaut",
@@ -177,8 +174,6 @@ export default {
       categoryName: "Titre",
       categoryNamePlaceholder: "Veuillez entrer le titre de la catégorie",
       categoryNameRequired: "Veuillez entrer le titre de la catégorie",
-      webViewDescription:
-        "Afficher les articles de tous les flux de cette catégorie comme leur page web (enregistré dans ce navigateur)",
     },
   },
   articleView: {

@@ -32,8 +32,7 @@ import ArticleReadingRail from "./components/ArticleReadingRail.jsx";
 import { useReducedMotion } from "@/hooks/useReducedMotion.js";
 import { ScrollArea } from "@/components/ui/scroll-area.jsx";
 import WebView from "./components/WebView.jsx";
-import { webViewOverrides, webViewPrefs } from "@/stores/webViewStore.js";
-import { feeds } from "@/stores/feedsStore.js";
+import { webViewOverrides } from "@/stores/webViewStore.js";
 import { isWebView } from "@/domain/articles/webView.js";
 function useActiveArticle(articleId) {
   const result = useLiveQuery(async () => {
@@ -125,8 +124,6 @@ export default function ArticleView() {
     titleAlignType,
     showReadingRail,
   } = useStore(settingsState);
-  const settings = useStore(settingsState);
-  const feedList = useStore(feeds);
   const overrides = useStore(webViewOverrides);
   const reduceMotion = useReducedMotion();
   const scrollAreaRef = useRef(null);
@@ -149,11 +146,7 @@ export default function ArticleView() {
   }, [isExpanded, reduceMotion, articleId]);
   const isMedium = useIsMedium();
   const { error, loading } = useActiveArticle(articleId);
-  const webView = Boolean(
-    article &&
-    !error &&
-    isWebView(article, webViewPrefs(article, settings, feedList), overrides),
-  );
+  const webView = Boolean(article && !error && isWebView(article, overrides));
   return (
     <MotionConfig reducedMotion={reduceMotion ? "always" : "never"}>
       <div

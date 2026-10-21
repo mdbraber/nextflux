@@ -17,6 +17,7 @@ test("maps a Miniflux entry to the stored article shape", () => {
     created_at: "2026-01-01T00:01:00Z",
     reading_time: 3,
     enclosures: null,
+    tags: ["web-view"],
   });
 
   assert.deepEqual(article, {
@@ -32,6 +33,7 @@ test("maps a Miniflux entry to the stored article shape", () => {
     created_at: "2026-01-01T00:01:00Z",
     reading_time: 3,
     enclosures: [],
+    tags: ["web-view"],
   });
 });
 

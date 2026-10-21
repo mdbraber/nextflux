@@ -81,9 +81,6 @@ export default {
     feedCategory: "Category",
     feedCrawler: "Fetch original content",
     feedHide: "Hide feed globally",
-    feedWebView: "Open in web view",
-    feedWebViewDescription:
-      "Show articles as their web page instead of the feed content (saved in this browser)",
     feedCrawlerDescription: "Try to fetch original content automatically",
     feedHideDescription: "Hide this feed and its articles by default",
     feedTitlePlaceholder: "Please enter feed title",
@@ -176,8 +173,6 @@ export default {
       categoryName: "Title",
       categoryNamePlaceholder: "Please enter category title",
       categoryNameRequired: "Please enter category title",
-      webViewDescription:
-        "Show the articles of every feed in this category as their web page (saved in this browser)",
     },
   },
   articleView: {
