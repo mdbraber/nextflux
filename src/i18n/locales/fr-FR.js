@@ -79,6 +79,9 @@ export default {
     feedUrl: "URL du flux",
     feedTitle: "Titre",
     feedCategory: "Catégorie",
+    feedWebView: "Ouvrir en vue web",
+    feedWebViewDescription:
+      "Afficher les articles comme leur page web au lieu du contenu du flux",
     feedCrawler: "Récupérer le contenu original",
     feedHide: "Masquer le flux globalement",
     feedCrawlerDescription:

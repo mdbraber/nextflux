@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   fitToWidth,
   isWebView,
+  withWebViewFeed,
   wantsWebView,
   webViewUrl,
 } from "../../src/domain/articles/webView.js";
@@ -47,4 +48,13 @@ test("narrow panes lay the page out at the minimum width and scale it down", () 
     height: 900,
     scale: 1,
   });
+});
+
+test("web view can be turned on per feed", () => {
+  const plain = { id: 8, feedId: 3, url: "https://example.com/post", tags: [] };
+  assert.equal(isWebView(plain, {}, [3]), true);
+  assert.equal(isWebView(plain, {}, [4]), false);
+  assert.equal(isWebView(plain, { 8: false }, [3]), false);
+  assert.deepEqual(withWebViewFeed([1, 3], 3, false), [1]);
+  assert.deepEqual(withWebViewFeed([1], "3", true), [1, 3]);
 });

@@ -123,6 +123,7 @@ export default function ArticleView() {
     titleFontSize,
     titleAlignType,
     showReadingRail,
+    webViewFeeds,
   } = useStore(settingsState);
   const overrides = useStore(webViewOverrides);
   const reduceMotion = useReducedMotion();
@@ -146,7 +147,9 @@ export default function ArticleView() {
   }, [isExpanded, reduceMotion, articleId]);
   const isMedium = useIsMedium();
   const { error, loading } = useActiveArticle(articleId);
-  const webView = Boolean(article && !error && isWebView(article, overrides));
+  const webView = Boolean(
+    article && !error && isWebView(article, overrides, webViewFeeds),
+  );
   return (
     <MotionConfig reducedMotion={reduceMotion ? "always" : "never"}>
       <div

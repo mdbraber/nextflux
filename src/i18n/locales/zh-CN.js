@@ -79,6 +79,8 @@ export default {
     feedTitle: "标题",
     feedCategory: "分类",
     feedHide: "隐藏订阅",
+    feedWebView: "以网页视图打开",
+    feedWebViewDescription: "以文章网页代替订阅内容显示",
     feedCrawler: "抓取原始内容",
     feedCrawlerDescription: "尝试自动抓取原始内容",
     feedHideDescription: "默认隐藏此订阅及其文章",

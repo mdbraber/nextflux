@@ -1,8 +1,8 @@
 // Web view: show an article as its own web page (in a frame) instead of the
 // feed content. A feed asks for it by tagging its entries "web-view" (an Atom
-// category / RSS category, which Miniflux keeps as entry tags), so the choice
-// lives with the feed and holds on every device. Any article can be switched
-// either way for the current session.
+// category / RSS category, which Miniflux keeps as entry tags), or it is turned
+// on for the feed in the feed dialog. Any article can be switched either way
+// for the current session.
 
 export const WEB_VIEW_TAG = "web-view";
 
@@ -27,13 +27,26 @@ export function wantsWebView(article) {
   );
 }
 
-/** Whether the article shows in web view: a session choice wins over the feed's request. */
-export function isWebView(article, overrides) {
+/**
+ * Whether the article shows in web view: a session choice wins over the
+ * defaults (the feed's web-view tag, or web view turned on for the feed).
+ */
+export function isWebView(article, overrides, webViewFeeds) {
   if (!webViewUrl(article)) return false;
   if (overrides && Object.hasOwn(overrides, article.id)) {
     return overrides[article.id];
   }
-  return wantsWebView(article);
+  return (
+    wantsWebView(article) ||
+    (Array.isArray(webViewFeeds) && webViewFeeds.includes(article.feedId))
+  );
+}
+
+/** webViewFeeds with feedId switched on or off. */
+export function withWebViewFeed(webViewFeeds, feedId, enabled) {
+  const id = Number(feedId);
+  const rest = (webViewFeeds || []).filter((item) => item !== id);
+  return enabled && Number.isInteger(id) && id > 0 ? [...rest, id] : rest;
 }
 
 /**

@@ -80,6 +80,9 @@ export default {
     feedUrl: "Besleme URL'si",
     feedTitle: "Başlık",
     feedCategory: "Kategori",
+    feedWebView: "Web görünümünde aç",
+    feedWebViewDescription:
+      "Makaleleri besleme içeriği yerine web sayfası olarak göster",
     feedCrawler: "Orijinal içeriği çek",
     feedHide: "Beslemeyi her yerden gizle",
     feedCrawlerDescription: "Orijinal içeriği otomatik çekmeyi dene",

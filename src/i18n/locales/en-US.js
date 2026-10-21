@@ -79,6 +79,9 @@ export default {
     feedUrl: "Feed URL",
     feedTitle: "Title",
     feedCategory: "Category",
+    feedWebView: "Open in web view",
+    feedWebViewDescription:
+      "Show articles as their web page instead of the feed content",
     feedCrawler: "Fetch original content",
     feedHide: "Hide feed globally",
     feedCrawlerDescription: "Try to fetch original content automatically",

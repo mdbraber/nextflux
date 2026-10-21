@@ -29,6 +29,7 @@ import {
   toggleArticleWebView,
   webViewOverrides,
 } from "@/stores/webViewStore.js";
+import { settingsState } from "@/stores/settingsStore.js";
 import { isWebView, webViewUrl } from "@/domain/articles/webView.js";
 export default function ArticleStateActions({
   article,
@@ -43,7 +44,8 @@ export default function ArticleStateActions({
   const statusPending = article ? `${article.id}:status` in pending : false;
   const starPending = article ? `${article.id}:starred` in pending : false;
   const overrides = useStore(webViewOverrides);
-  const webView = article ? isWebView(article, overrides) : false;
+  const { webViewFeeds } = useStore(settingsState);
+  const webView = article ? isWebView(article, overrides, webViewFeeds) : false;
   const webViewLabel = webView
     ? t("articleView.hideWebView")
     : t("articleView.showWebView");

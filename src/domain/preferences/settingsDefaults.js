@@ -20,6 +20,8 @@ export const settingsDefaults = {
   showReadingTime: true,
   autoHideToolbar: false,
   showReadingRail: false,
+  // Feed ids whose articles open as their web page (web view) by default.
+  webViewFeeds: [],
   syncInterval: "15", // 添加同步间隔设置，默认15分钟
   showLineNumbers: false,
   forceDarkCodeTheme: false,
