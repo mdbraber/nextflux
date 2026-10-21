@@ -177,6 +177,8 @@ export default {
       categoryName: "Başlık",
       categoryNamePlaceholder: "Lütfen kategori başlığını girin",
       categoryNameRequired: "Lütfen kategori başlığını girin",
+      webViewDescription:
+        "Bu kategorideki tüm beslemelerin makalelerini web sayfası olarak göster (bu tarayıcıda kaydedilir)",
     },
   },
   articleView: {

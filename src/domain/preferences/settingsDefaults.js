@@ -23,6 +23,7 @@ export const settingsDefaults = {
   // Feed ids whose articles open as the web page itself (web view) instead of
   // the feed content, e.g. newsletters that only look right as sent.
   webViewFeeds: [],
+  webViewCategories: [], // same, for every feed in these categories
   syncInterval: "15", // 添加同步间隔设置，默认15分钟
   showLineNumbers: false,
   forceDarkCodeTheme: false,

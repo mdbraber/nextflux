@@ -35,7 +35,7 @@ function pickSettings(settings) {
     if (typeof value !== typeof fallback) invalid();
     if (Array.isArray(fallback) !== Array.isArray(value)) invalid();
     if (
-      key === "webViewFeeds" &&
+      (key === "webViewFeeds" || key === "webViewCategories") &&
       (value.length > 10_000 ||
         !value.every((id) => Number.isInteger(id) && id > 0))
     )

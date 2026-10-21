@@ -176,6 +176,8 @@ export default {
       categoryName: "Title",
       categoryNamePlaceholder: "Please enter category title",
       categoryNameRequired: "Please enter category title",
+      webViewDescription:
+        "Show the articles of every feed in this category as their web page (saved in this browser)",
     },
   },
   articleView: {

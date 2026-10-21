@@ -2,11 +2,14 @@ import { Form } from "@base-ui/react/form";
 import { Spinner } from "@/components/ui/spinner";
 import {
   Field,
+  FieldContent,
+  FieldDescription,
   FieldSet,
   FieldGroup,
   FieldLabel,
   FieldError,
 } from "@/components/ui/field";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
@@ -19,6 +22,8 @@ import { useTranslation } from "react-i18next";
 import CustomModal from "@/components/ui/CustomModal.jsx";
 import { updateCategory } from "@/db/storage";
 import { reportError } from "@/lib/errors.js";
+import { settingsState } from "@/stores/settingsStore.js";
+import { setCategoryWebView } from "@/stores/webViewStore.js";
 export default function RenameModal() {
   const { t } = useTranslation();
   const $categories = useStore(categories);
@@ -29,6 +34,12 @@ export default function RenameModal() {
   const [newTitle, setNewTitle] = useState("");
   const [loading, setLoading] = useState(false);
   const $renameModalOpen = useStore(renameModalOpen);
+  const { webViewCategories } = useStore(settingsState);
+  // A Nextflux preference, not a Miniflux category field: saved in this browser.
+  const [webView, setWebView] = useState(false);
+  useEffect(() => {
+    setWebView(webViewCategories.includes(Number(categoryId)));
+  }, [categoryId, webViewCategories, $renameModalOpen]);
   useEffect(() => {
     if (categoryId) {
       setNewTitle(
@@ -51,6 +62,7 @@ export default function RenameModal() {
     try {
       setLoading(true);
       await minifluxAPI.updateCategory(categoryId, newTitle);
+      setCategoryWebView(categoryId, webView);
       // 更新本地数据库
       await updateCategory(parseInt(categoryId), newTitle);
       // 更新内存中的 store
@@ -119,6 +131,22 @@ export default function RenameModal() {
               <FieldError>
                 {t("articleList.renameCategory.categoryNameRequired")}
               </FieldError>
+            </Field>
+            <Field orientation="horizontal">
+              <Checkbox
+                value="web_view"
+                checked={webView}
+                onCheckedChange={(value) => setWebView(value)}
+                id="category_web_view"
+              />
+              <FieldContent>
+                <FieldLabel htmlFor="category_web_view">
+                  {t("feed.feedWebView")}
+                </FieldLabel>
+                <FieldDescription>
+                  {t("articleList.renameCategory.webViewDescription")}
+                </FieldDescription>
+              </FieldContent>
             </Field>
           </FieldGroup>
         </FieldSet>

@@ -177,6 +177,8 @@ export default {
       categoryName: "Titre",
       categoryNamePlaceholder: "Veuillez entrer le titre de la catégorie",
       categoryNameRequired: "Veuillez entrer le titre de la catégorie",
+      webViewDescription:
+        "Afficher les articles de tous les flux de cette catégorie comme leur page web (enregistré dans ce navigateur)",
     },
   },
   articleView: {

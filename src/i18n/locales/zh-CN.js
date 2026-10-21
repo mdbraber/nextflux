@@ -174,6 +174,8 @@ export default {
       categoryName: "标题",
       categoryNamePlaceholder: "请输入分类标题",
       categoryNameRequired: "请输入分类标题",
+      webViewDescription:
+        "将此分类中所有订阅的文章以网页显示（保存在此浏览器中）",
     },
   },
   articleView: {
