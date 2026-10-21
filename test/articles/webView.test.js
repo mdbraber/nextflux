@@ -1,6 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
+  fitToWidth,
   isWebView,
   wantsWebView,
   webViewUrl,
@@ -28,4 +29,22 @@ test("a session choice wins over the feed's request", () => {
   assert.equal(isWebView({ ...article, tags: [] }, {}), false);
   assert.equal(isWebView({ ...article, tags: [] }, { 7: true }), true);
   assert.equal(isWebView({ ...article, url: "" }, { 7: true }), false);
+});
+
+test("narrow panes lay the page out at the minimum width and scale it down", () => {
+  assert.deepEqual(fitToWidth(900, 800, 800), {
+    width: 900,
+    height: 800,
+    scale: 1,
+  });
+  assert.deepEqual(fitToWidth(600, 900, 800), {
+    width: 800,
+    height: 1200,
+    scale: 0.75,
+  });
+  assert.deepEqual(fitToWidth(600, 900, 0), {
+    width: 600,
+    height: 900,
+    scale: 1,
+  });
 });

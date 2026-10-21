@@ -35,3 +35,15 @@ export function isWebView(article, overrides) {
   }
   return wantsWebView(article);
 }
+
+/**
+ * How to show a page in a box of width × height so it is laid out at least
+ * minWidth wide: the frame size before scaling and the scale that fits it.
+ */
+export function fitToWidth(width, height, minWidth) {
+  if (!minWidth || !width || width >= minWidth) {
+    return { width, height, scale: 1 };
+  }
+  const scale = width / minWidth;
+  return { width: minWidth, height: Math.ceil(height / scale), scale };
+}
